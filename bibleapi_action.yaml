@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: Bible API (LS1910)
+  description: Récupère un verset biblique en français (Louis Segond 1910)
+  version: "1.0.0"
+servers:
+  - url: https://bible-api.com
+paths:
+  /{reference}:
+    get:
+      summary: Obtenir un verset en français (Segond 1910)
+      parameters:
+        - name: reference
+          in: path
+          required: true
+          description: Référence biblique (ex: Jean 1:1)
+          schema:
+            type: string
+        - name: translation
+          in: query
+          required: false
+          description: Version de la Bible à utiliser (par défaut : ls1910)
+          schema:
+            type: string
+            default: ls1910
+      responses:
+        '200':
+          description: Verset biblique trouvé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reference:
+                    type: string
+                  text:
+                    type: string
+                  translation_id:
+                    type: string
